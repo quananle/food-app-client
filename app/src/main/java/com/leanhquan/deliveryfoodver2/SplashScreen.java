@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
-
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import com.airbnb.lottie.LottieAnimationView;
+
 
 public class SplashScreen extends AppCompatActivity {
 
-    LottieAnimationView  lottieAnimationView;
-    Handler              handler = new Handler();
+    private static int              PLASH_SCREEN_DISPLAY = 3000;
+    private Handler                 handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,23 +23,20 @@ public class SplashScreen extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash_screen);
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                lottieAnimationView = findViewById(R.id.animationView);
-            }
-        };
 
-        handler.postDelayed(runnable, 1000);
+        LottieAnimationView lottieAnimationView = findViewById(R.id.animationView);
+        Animation animation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.anim_splash);
+        lottieAnimationView.startAnimation(animation);
 
-        final Intent intent = new Intent(this, MainActivity.class);
 
+
+        final Intent intent = new Intent(this, LoginActivity.class);
         Thread thread = new Thread() {
             @Override
             public void run() {
                 super.run();
                 try {
-                    sleep(40000);
+                    sleep(PLASH_SCREEN_DISPLAY);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } finally {

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <ScrollView
+        android:id="@+id/mainScroll"
+        android:fillViewport="true"
+        android:isScrollContainer="false"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark">
+
+                    <ImageView
+                        android:id="@+id/imgback"
+                        android:src="@drawable/ic_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:text="Register"
+                        android:textStyle="italic"
+                        android:textSize="25sp"
+                        android:textColor="#fff"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                        android:layout_gravity="center" />
+
+                </androidx.appcompat.widget.Toolbar>
+
+                <RelativeLayout
+                    android:id="@+id/layoutRegis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtPhone"
+                        android:text="Phone number"
+                        android:textSize="18sp"
+                        android:textColor="#232222"
+                        android:textStyle="bold"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_above="@id/edtPhoneRegis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/edtPhoneRegis"
+                        android:textSize="16sp"
+                        android:focusable="true"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:maxLines="1"
+                        android:layout_marginHorizontal="18dp"
+                        android:hint="input your phone number here"
+                        android:layout_above="@id/txtUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+                    <TextView
+                        android:id="@+id/txtUserName"
+                        android:text="Username"
+                        android:textColor="#232222"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_above="@+id/edtUserNameRegis"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/edtUserNameRegis"
+                        android:layout_marginHorizontal="18dp"
+                        android:hint="type your user name here"
+                        android:textSize="16sp"
+                        android:inputType="textCapCharacters"
+                        android:maxLines="1"
+                        android:maxLength="30"
+                        android:layout_centerInParent="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/txtPassword"
+                        android:text="Password"
+                        android:textSize="18sp"
+                        android:textColor="#232222"
+                        android:textStyle="bold"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_below="@id/edtUserNameRegis"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <EditText
+                        android:id="@+id/edtPasswordRegis"
+                        android:textSize="16sp"
+                        android:layout_marginHorizontal="18dp"
+                        android:hint="input password here"
+                        android:inputType="textPassword"
+                        android:maxLength="30"
+                        android:maxLines="1"
+                        android:layout_below="@id/txtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btnSignup"
+                        android:text="Sign up"
+                        android:textColor="#FFF"
+                        android:layout_marginHorizontal="25dp"
+                        android:layout_marginTop="80dp"
+                        android:layout_below="@id/edtPasswordRegis"
+                        android:background="@drawable/bg_button_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
