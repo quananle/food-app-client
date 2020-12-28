@@ -3,12 +3,15 @@ package com.leanhquan.deliveryfoodver2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText        edtPhone, edtUsername, edtPassword;
     private RelativeLayout  layout;
 
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getRealMetrics(displayMetrics);
 
-        layout.getLayoutParams().height = displayMetrics.heightPixels-750;
-
-        final ScrollView mainscroll = findViewById(R.id.mainScroll);
-        mainscroll.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                mainscroll.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        mainscroll.fullScroll(View.FOCUS_DOWN);
-                    }
-                });
-            }
-        });
+        layout.getLayoutParams().height = displayMetrics.heightPixels-700;
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
