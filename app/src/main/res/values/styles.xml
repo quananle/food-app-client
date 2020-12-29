@@ -9,5 +9,18 @@
         <item name="android:fontFamily">@font/oswald_regular</item>
     </style>
 
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="CollapedAppbar" parent="@style/TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="ExpandedAppbar" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
 </resources>

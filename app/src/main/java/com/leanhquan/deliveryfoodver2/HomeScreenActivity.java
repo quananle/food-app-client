@@ -122,8 +122,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
                 final Category clickItem = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
-                    public void onClick(View view, int position, boolean longClick) {
+                        public void onClick(View view, int position, boolean longClick) {
                         Toast.makeText(HomeScreenActivity.this, "Go to deltais of"+clickItem.getName(), Toast.LENGTH_SHORT).show();
+                        String id = adapterCategorylist.getRef(position).getKey();
+                        Intent idCategory = new Intent(HomeScreenActivity.this, FoodListActivity.class);
+                        idCategory.putExtra("IdCategory", id);
+                        startActivity(idCategory);
                     }
                 });
             }

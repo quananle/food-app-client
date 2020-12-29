@@ -53,7 +53,7 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
-    //picasso
+    //picasso + glide load image
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -67,6 +67,10 @@ dependencies {
     //counterFab
     implementation 'com.github.andremion:counterfab:1.2.2'
     implementation 'com.google.firebase:firebase-auth:20.0.1'
+
+    //ElegantNumberButton
+    implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'
+    implementation 'com.android.support:design:28.0.0'
 
 
 }
