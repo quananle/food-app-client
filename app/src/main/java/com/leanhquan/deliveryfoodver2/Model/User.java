@@ -1,29 +1,29 @@
 package com.leanhquan.deliveryfoodver2.Model;
 
 public class User {
-    private String Name;
-    private String Password;
+    private String name;
+    private String password;
 
     public User(String name, String password){
-        Name = name;
-        Password = password;
+        this.name = name;
+        this.password = password;
     }
 
     public User(){}
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 }

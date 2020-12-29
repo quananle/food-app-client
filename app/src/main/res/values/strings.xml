@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">deliveryFoodver2</string>
+    <string name="navigation_drawer_opne">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Closer navigation drawer</string>
 </resources>

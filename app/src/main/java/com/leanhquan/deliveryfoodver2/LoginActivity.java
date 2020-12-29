@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,13 +22,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Model.User;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText       edtPhonenumber, edtPassword;
-    private Button         btnLogin;
-    private TextView       txtSignUp, txtFogotPass;
+    private DatabaseReference          userDB;
+    private EditText                   edtPhonenumber, edtPassword;
+    private Button                     btnLogin;
+    private TextView                   txtSignUp, txtFogotPass;
+    private FirebaseDatabase           database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +44,15 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginUser();
+                try {
+                    if (!validatePhone() | !validatePassword()) {
+                        Toast.makeText(LoginActivity.this, "input wrong type", Toast.LENGTH_SHORT).show();
+                    }else  {
+                        isUser();
+                    }
+                } catch (IllegalAccessError e){
+                    Toast.makeText(LoginActivity.this, "Account does not exits", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -85,34 +98,28 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void loginUser(){
-        if (!validatePhone() | !validatePassword()) {
-            Toast.makeText(this, "input wrong type", Toast.LENGTH_SHORT).show();
-        }else  {
-            isUser();
-        }
-    }
-
     private void isUser() {
         final String userEntered = edtPhonenumber.getText().toString().trim();
         final String passwordEntered = edtPassword.getText().toString().trim();
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference user = database.getReference("user");
+        database = FirebaseDatabase.getInstance();
+        userDB = database.getReference("user");
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please waiting ...");
         progressDialog.show();
 
-        user.addValueEventListener(new ValueEventListener() {
+
+        userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.child(userEntered).exists()) {
                     edtPhonenumber.setError(null);
                     User user = dataSnapshot.child(userEntered).getValue(User.class);
                     if (user.getPassword().equals(passwordEntered)) {
                         edtPhonenumber.setError(null);
                         Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                        Common.currentUser = user;
                         startActivity(intent);
                         finish();
                     }else {

@@ -21,6 +21,7 @@
        android:id="@+id/edtPhonenumber"
        android:layout_marginHorizontal="18dp"
        android:hint="0971839125"
+       android:text="123456789"
        android:inputType="number"
        android:maxLines="1"
        android:maxLength="11"
@@ -49,6 +50,7 @@
        android:maxLines="1"
        android:maxLength="30"
        android:hint="••••••••••••••"
+       android:text="123"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
 
