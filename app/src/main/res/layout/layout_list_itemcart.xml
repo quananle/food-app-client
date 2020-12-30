@@ -57,7 +57,8 @@
                 android:gravity="center_vertical|start"
                 android:textAllCaps="true"
                 android:textStyle="bold"
-                android:text="Food 01"
+                android:text="Food 01 "
+                android:paddingHorizontal="3dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView

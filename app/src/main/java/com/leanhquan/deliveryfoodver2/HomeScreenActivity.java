@@ -59,6 +59,8 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_home_screen);
         init();
 
+        //todo: fisish client with search food
+
         recyclerMenu = findViewById(R.id.recycler_menu);
         RecyclerView.LayoutManager layoutManagerListCategory = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManagerListCategory);
@@ -190,19 +192,17 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        //todo: handle menu 30 -12
-
         if (id == R.id.page_menu) {
             // Handle the camera action
             Toast.makeText(this, "Go to menu", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.page_cart) {
             Toast.makeText(this, "Go to cart", Toast.LENGTH_SHORT).show();
-           // Intent cartIntent = new Intent(Home.this, Cart.class);
-            //startActivity(cartIntent);
+            Intent cartIntent = new Intent(HomeScreenActivity.this, CartActivity.class);
+            startActivity(cartIntent);
         } else if (id == R.id.page_historycart) {
             Toast.makeText(this, "Go to history", Toast.LENGTH_SHORT).show();
-            //Intent orderIntent = new Intent(Home.this, OrderStatus.class);
-            //startActivity(orderIntent);
+            Intent OrderIntent = new Intent(HomeScreenActivity.this, OrderListActivity.class);
+            startActivity(OrderIntent);
         } else if (id == R.id.page_logout) {
             showSignOutDialog();
         }

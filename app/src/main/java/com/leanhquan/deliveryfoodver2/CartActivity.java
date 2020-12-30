@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,7 @@ public class CartActivity extends AppCompatActivity {
 
 
         database =  FirebaseDatabase.getInstance();
-        requests = database.getReference("Requests");
+        requests = database.getReference("requests");
 
         recyclerViewCart = findViewById(R.id.recycler_cart);
         layoutManagerCart = new LinearLayoutManager(this);
@@ -103,6 +104,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Request request = new Request(
+                        Common.currentUser.getPhone(),
                         Common.currentUser.getName(),
                         edtAddress.getText().toString(),
                         txtTotal.getText().toString(),
@@ -110,6 +112,8 @@ public class CartActivity extends AppCompatActivity {
                 );
                 requests.child(String.valueOf(System.currentTimeMillis()))
                         .setValue(request);
+
+                Log.d("TAG", "onClick: "+ Common.currentUser.getPhone());
 
                 new Database(getBaseContext()).clearCart();
 

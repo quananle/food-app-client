@@ -121,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     edtPhone.setError("Phone number Already register");
                 }else{
-                    User user = new User(edtUsername.getText().toString(), edtPassword.getText().toString());
+                    User user = new User(edtUsername.getText().toString(), edtPassword.getText().toString(), phone);
                     userDb.child(phone).setValue(user);
                     Toast.makeText(RegisterActivity.this, "Sign up successfuly", Toast.LENGTH_SHORT).show();
                     finish();

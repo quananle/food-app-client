@@ -82,8 +82,9 @@
                             android:textStyle="italic"
                             android:layout_marginStart="8dp"
                             android:layout_above="@id/aaabbb"
-                            android:text="Phí ship: $0.50"
-                            android:textSize="18sp"
+                            android:text="Phí ship: $0.50 "
+                            android:paddingHorizontal="5dp"
+                            android:textSize="13sp"
                             android:textColor="@android:color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
