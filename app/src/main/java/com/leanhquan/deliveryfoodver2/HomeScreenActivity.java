@@ -10,8 +10,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -61,16 +63,16 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         RecyclerView.LayoutManager layoutManagerListCategory = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManagerListCategory);
 
-        loadListCategory();
-
-
         fapCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Replace your own action", BaseTransientBottomBar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(HomeScreenActivity.this, CartActivity.class);
+                startActivity(i);
             }
         });
+
+        loadListCategory();
+
 
         ActionBarDrawerToggle  actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawer,toolbar,
@@ -85,6 +87,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         txtFullname = HeaderView.findViewById(R.id.txtFullName);
         txtFullname.setText(Common.currentUser.getName());
     }
+
 
     @Override
     protected void onStop() {

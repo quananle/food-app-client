@@ -109,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Please waiting ...");
         progressDialog.show();
 
-
         userDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
