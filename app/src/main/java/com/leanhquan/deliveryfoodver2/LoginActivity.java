@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (dataSnapshot.child(userEntered).exists()) {
                     edtPhonenumber.setError(null);
                     User user = dataSnapshot.child(userEntered).getValue(User.class);
+                    assert user != null;
                     if (user.getPassword().equals(passwordEntered)) {
                         edtPhonenumber.setError(null);
                         Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);

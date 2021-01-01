@@ -10,6 +10,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimaryDark">
+
+            <ImageView
+                android:id="@+id/imgback"
+                android:src="@drawable/ic_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:text="Food list"
+                android:textStyle="italic"
+                android:textSize="25sp"
+                android:textColor="#fff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:layout_gravity="center" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.mancj.materialsearchbar.MaterialSearchBar
+            app:mt_placeholder="Tìm món ăn"
+            app:mt_hint="Enter your food"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            app:mt_speechMode="false"
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.mancj.materialsearchbar.MaterialSearchBar>
         <androidx.recyclerview.widget.RecyclerView
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -18,5 +54,7 @@
             android:layout_height="match_parent"
             android:id="@+id/recycler_food"/>
     </LinearLayout>
+
+
 
 </RelativeLayout>

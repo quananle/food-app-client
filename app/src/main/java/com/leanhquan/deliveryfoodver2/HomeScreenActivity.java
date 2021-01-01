@@ -59,8 +59,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_home_screen);
         init();
 
-        //todo: fisish client with search food
-
         recyclerMenu = findViewById(R.id.recycler_menu);
         RecyclerView.LayoutManager layoutManagerListCategory = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManagerListCategory);
@@ -151,7 +149,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
         }
     }
 

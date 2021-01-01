@@ -81,5 +81,8 @@ dependencies {
     //button
     implementation 'info.hoang8f:fbutton:1.0.5'
 
+    //searchbar
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
+
 
 }
