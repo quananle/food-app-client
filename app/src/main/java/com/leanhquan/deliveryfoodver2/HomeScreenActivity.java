@@ -38,6 +38,7 @@ import com.google.firebase.database.Query;
 import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Category;
+import com.leanhquan.deliveryfoodver2.Service.ListenOrderService;
 import com.leanhquan.deliveryfoodver2.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -59,6 +60,9 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_home_screen);
         init();
 
+        Intent service = new Intent(this, ListenOrderService.class);
+        startService(service);
+
         recyclerMenu = findViewById(R.id.recycler_menu);
         RecyclerView.LayoutManager layoutManagerListCategory = new LinearLayoutManager(this);
         recyclerMenu.setLayoutManager(layoutManagerListCategory);
@@ -72,7 +76,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         });
 
         loadListCategory();
-
 
         ActionBarDrawerToggle  actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawer,toolbar,

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,13 +36,16 @@ public class OrderListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order_list);
 
         database = FirebaseDatabase.getInstance();
-        requests = database.getReference("Requests");
+        requests = database.getReference("requests");
 
         recyclerView = findViewById(R.id.listOrders);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        loadHistory(Common.currentUser.getPhone());
+        if (getIntent() == null)
+            loadHistory(Common.currentUser.getPhone());
+        else
+            loadHistory(getIntent().getStringExtra("userPhone"));
 
     }
 
@@ -75,13 +79,13 @@ public class OrderListActivity extends AppCompatActivity {
                 .setQuery(query, Request.class)
                 .build();
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(options) {
+            @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull Request model) {
                 holder.txtOderId.setText("Code order #"+adapter.getRef(position).getKey());
-                holder.txtOderStatus.setText(convertCodeTostatus(model.getStatus()));
-                holder.txtAddress.setText(model.getAdress());
+                holder.txtOderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
+                holder.txtAddress.setText(model.getAddress());
                 holder.txtOderPhone.setText(model.getPhone());
-                Log.d("TAG", "onBindViewHolder: "+model.getPhone());
             }
 
             @NonNull
@@ -95,9 +99,4 @@ public class OrderListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    private String convertCodeTostatus(String status) {
-        if (status.equals("0")) {
-            return "Đã đặt";
-        } else { return "Đã đặt";}
-    }
 }

@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.firebaseui:firebase-ui-database:7.1.1'
+    implementation 'com.google.firebase:firebase-auth:20.0.1'
 
     //cardview + recyclerview
     implementation "androidx.cardview:cardview:1.0.0"
@@ -66,7 +67,6 @@ dependencies {
 
     //counterFab
     implementation 'com.github.andremion:counterfab:1.2.2'
-    implementation 'com.google.firebase:firebase-auth:20.0.1'
 
     //ElegantNumberButton
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.2'

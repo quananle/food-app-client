@@ -10,24 +10,15 @@ public class Request {
     private String status;
     private List<Order> foods;
 
-    public Request() {
-    }
+    public Request() { }
 
-    public Request(String phone, String name, String address, String total, List<Order> foods) {
+    public Request(String phone, String name, String address, String total, String status, List<Order> foods) {
         this.phone = phone;
         this.name = name;
         this.address = address;
         this.total = total;
-        this.foods = foods;
-        this.status = "0"; // 0: order, 1:shipping, 2:shipped
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
         this.status = status;
+        this.foods = foods;
     }
 
     public String getPhone() {
@@ -46,12 +37,12 @@ public class Request {
         this.name = name;
     }
 
-    public String getAdress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAdress(String adress) {
-        this.address = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getTotal() {
@@ -60,6 +51,14 @@ public class Request {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Order> getFoods() {

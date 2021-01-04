@@ -99,7 +99,7 @@ public class CartActivity extends AppCompatActivity {
         );
         edtAddress.setLayoutParams(lp);
         alertdialog.setView(edtAddress);
-        alertdialog.setIcon(R.drawable.ic_cart);
+        alertdialog.setIcon(R.drawable.ic_cart_black);
         alertdialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -108,6 +108,7 @@ public class CartActivity extends AppCompatActivity {
                         Common.currentUser.getName(),
                         edtAddress.getText().toString(),
                         txtTotal.getText().toString(),
+                        "0",
                         cart
                 );
                 requests.child(String.valueOf(System.currentTimeMillis()))
