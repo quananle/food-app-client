@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,6 +42,8 @@ import com.leanhquan.deliveryfoodver2.Model.Category;
 import com.leanhquan.deliveryfoodver2.Service.ListenOrderService;
 import com.leanhquan.deliveryfoodver2.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
+
+import io.paperdb.Paper;
 
 public class HomeScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private final static String       TAG = "TAG";
@@ -75,7 +78,12 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-        loadListCategory();
+        if (Common.isConnectedToInternet(this)){
+            loadListCategory();
+        }else {
+            Toast.makeText(HomeScreenActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         ActionBarDrawerToggle  actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this, drawer,toolbar,
@@ -172,6 +180,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         alertDialog.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                Paper.book().destroy();
                 FirebaseAuth.getInstance().signOut();
                 Intent signIn = new Intent(HomeScreenActivity.this, LoginActivity.class);
                 signIn.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

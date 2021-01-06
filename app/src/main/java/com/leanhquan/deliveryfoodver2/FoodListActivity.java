@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Food;
 import com.leanhquan.deliveryfoodver2.ViewHolder.FoodViewHolder;
@@ -63,9 +65,13 @@ public class FoodListActivity extends AppCompatActivity {
         materialSearchBar = findViewById(R.id.searchBar);
 
         if (getIntent() != null){ menuId = getIntent().getStringExtra("IdCategory");}
-        assert menuId != null;
         if (!menuId.isEmpty() && menuId != null){
-            loadListFood(menuId);
+            if (Common.isConnectedToInternet(getBaseContext()))
+                loadListFood(menuId);
+            else {
+                Toast.makeText(FoodListActivity.this, "Please check your internet connection!!", Toast.LENGTH_SHORT).show();
+                return;
+            }
         }
 
         loadSuggest();

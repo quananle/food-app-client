@@ -42,10 +42,8 @@ public class OrderListActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        if (getIntent() == null)
-            loadHistory(Common.currentUser.getPhone());
-        else
-            loadHistory(getIntent().getStringExtra("userPhone"));
+        loadHistory(Common.currentUser.getPhone());
+
 
     }
 
@@ -79,7 +77,6 @@ public class OrderListActivity extends AppCompatActivity {
                 .setQuery(query, Request.class)
                 .build();
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(options) {
-            @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull Request model) {
                 holder.txtOderId.setText("Code order #"+adapter.getRef(position).getKey());

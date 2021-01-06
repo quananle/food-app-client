@@ -1,5 +1,6 @@
 package com.leanhquan.deliveryfoodver2;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,7 +63,10 @@ public class CartActivity extends AppCompatActivity {
         btnOder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAlertDialog();
+                if (cart.size() > 0)
+                    showAlertDialog();
+                else
+                    Toast.makeText(CartActivity.this, "your cart is emty", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -69,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
     private void loadListFoodinCart() {
         cart = new Database(this).getCarts();
         adapter = new CartAdapter(cart, this);
+        adapter.notifyDataSetChanged();
         recyclerViewCart.setAdapter(adapter);
 
         int total = 0;
@@ -86,6 +93,13 @@ public class CartActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         new Database(getBaseContext()).clearCart();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, HomeScreenActivity.class);
+        startActivity(i);
     }
 
     private void showAlertDialog() {
@@ -133,6 +147,24 @@ public class CartActivity extends AppCompatActivity {
         });
 
         alertdialog.show();
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getTitle().equals(Common.DELETE)){
+            deleteCart(item.getOrder());
+        }
+        return true;
+    }
+
+    private void deleteCart(int position) {
+        cart.remove(position);
+        new Database(this).clearCart();
+        for (Order item:cart){
+            new Database(this).addTocart(item);
+        }
+
+        loadListFoodinCart();
     }
 
     private void init() {

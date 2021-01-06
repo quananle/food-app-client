@@ -2,6 +2,7 @@ package com.leanhquan.deliveryfoodver2.ViewHolder;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Order;
 import com.leanhquan.deliveryfoodver2.R;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class cartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+class cartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener {
 
     public TextView                   txtCartname,txtprice;
     public ElegantNumberButton        btnCount;
@@ -42,11 +44,25 @@ class cartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
         cartImage = (ImageView)itemView.findViewById(R.id.card_image);
         view_background = (RelativeLayout)itemView.findViewById(R.id.view_background);
         view_foreground = (LinearLayout)itemView.findViewById(R.id.view_foreground);
+
+        itemView.setOnClickListener(this);
+        itemView.setOnCreateContextMenuListener(this);
     }
+
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
 
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        menu.setHeaderTitle("Select action");
+        menu.add(0,0, getAdapterPosition(), Common.DELETE);
     }
 }
 

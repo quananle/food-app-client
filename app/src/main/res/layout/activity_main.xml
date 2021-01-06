@@ -54,13 +54,27 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
 
+
+   <com.rey.material.widget.CheckBox
+       android:padding="15dp"
+       android:gravity="center"
+       app:cbd_tickColor="@color/white"
+       app:cbd_strokeColor="@android:color/holo_red_dark"
+       android:textColor="@android:color/holo_red_dark"
+       android:id="@+id/ckbRemember"
+       android:text="Remember me"
+       style="@style/Material.Drawable.CheckBox"
+       android:layout_below="@id/edtPassword"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"/>
+
    <Button
        android:id="@+id/btnLogin"
        android:text="Login"
        android:textColor="#FFF"
        android:layout_marginHorizontal="25dp"
        android:layout_below="@+id/edtPassword"
-       android:layout_marginTop="80dp"
+       android:layout_marginTop="100dp"
        android:background="@drawable/bg_button_login"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>

@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Model.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -57,10 +58,15 @@ public class RegisterActivity extends AppCompatActivity {
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!validatePhone() | !validatePassword() | !validateName()) {
-                    Toast.makeText(RegisterActivity.this, "input wrong type", Toast.LENGTH_SHORT).show();
-                }else  {
-                    Register();
+                if (Common.isConnectedToInternet(getBaseContext())){
+                    if (!validatePhone() | !validatePassword() | !validateName()) {
+                        Toast.makeText(RegisterActivity.this, "input wrong type", Toast.LENGTH_SHORT).show();
+                    }else  {
+                        Register();
+                    }
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
         });
