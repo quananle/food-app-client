@@ -88,6 +88,9 @@ dependencies {
     //paper
     implementation 'io.paperdb:paperdb:2.7.1'
 
+    //edittext
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
 
 
 }

@@ -32,7 +32,7 @@ import com.leanhquan.deliveryfoodver2.Model.User;
 public class RegisterActivity extends AppCompatActivity {
     private ImageView       imgBack;
     private Button          btnSignup;
-    private EditText        edtPhone, edtUsername, edtPassword;
+    private EditText        edtPhone, edtUsername, edtPassword, edtRescueCode;
     private RelativeLayout  layout;
 
     @SuppressLint("ClickableViewAccessibility")
@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         display.getRealMetrics(displayMetrics);
 
-        layout.getLayoutParams().height = displayMetrics.heightPixels-700;
+        layout.getLayoutParams().height = displayMetrics.heightPixels-250;
 
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +112,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void Register() {
         final String phone = edtPhone.getText().toString().trim();
 
+        //todo: define register
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userDb = database.getReference("user");
 
@@ -127,7 +129,7 @@ public class RegisterActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                     edtPhone.setError("Phone number Already register");
                 }else{
-                    User user = new User(edtUsername.getText().toString(), edtPassword.getText().toString(), phone);
+                    User user = new User(edtUsername.getText().toString(), edtPassword.getText().toString(), phone, edtRescueCode.getText().toString());
                     userDb.child(phone).setValue(user);
                     Toast.makeText(RegisterActivity.this, "Sign up successfuly", Toast.LENGTH_SHORT).show();
                     finish();
@@ -149,5 +151,6 @@ public class RegisterActivity extends AppCompatActivity {
         edtUsername = findViewById(R.id.edtUserNameRegis);
         edtPhone = findViewById(R.id.edtPhoneRegis);
         layout=findViewById(R.id.layoutRegis);
+        edtRescueCode = findViewById(R.id.edtRescueCodeRegis);
     }
 }

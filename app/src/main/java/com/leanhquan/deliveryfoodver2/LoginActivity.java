@@ -3,13 +3,17 @@ package com.leanhquan.deliveryfoodver2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.system.ErrnoException;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -28,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Model.User;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rey.material.widget.CheckBox;
 
 import io.paperdb.Paper;
@@ -96,9 +101,59 @@ public class LoginActivity extends AppCompatActivity {
         txtFogotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "Go to reset pass", Toast.LENGTH_SHORT).show();
+                showFogotPasswordDialog();
             }
         });
+    }
+
+    private void showFogotPasswordDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Quên Mật Khẩu ");
+
+
+        builder.setMessage("Nhập mã bảo mật của bạn");
+
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View forgot_view = inflater.inflate(R.layout.layout_fogot_password,null);
+        builder.setView(forgot_view);
+        builder.setIcon(R.drawable.ic_security);
+
+        final MaterialEditText edtPhone = (MaterialEditText)forgot_view.findViewById(R.id.edtPhoneFogotpass);
+        final MaterialEditText edtSecureCode = (MaterialEditText)forgot_view.findViewById(R.id.edtRescueFogot);
+
+        builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                try {
+                    userDB.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.child(edtPhone.getText().toString()).getValue(User.class);
+
+                            if(user.getRescue().equals(edtSecureCode.getText().toString()))
+                                Toast.makeText(LoginActivity.this, "Mật khẩu của bạn là: "+user.getPassword(), Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(LoginActivity.this, "Sai mã bảo mật!", Toast.LENGTH_SHORT).show();
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+
+                } catch (Exception error) {
+                    Toast.makeText(LoginActivity.this, "Phone does not exit or rescue code", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Hủy bỏ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     private boolean validatePhone() {
