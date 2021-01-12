@@ -203,7 +203,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         int id = item.getItemId();
 
         if (id == R.id.page_menu) {
-            // Handle the camera action
             Toast.makeText(this, "Go to menu", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.page_cart) {
             Toast.makeText(this, "Go to cart", Toast.LENGTH_SHORT).show();

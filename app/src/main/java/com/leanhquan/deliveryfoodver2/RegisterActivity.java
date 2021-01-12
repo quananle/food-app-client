@@ -112,7 +112,6 @@ public class RegisterActivity extends AppCompatActivity {
     private void Register() {
         final String phone = edtPhone.getText().toString().trim();
 
-        //todo: define register
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference userDb = database.getReference("user");

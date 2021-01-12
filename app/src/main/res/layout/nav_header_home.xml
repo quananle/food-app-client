@@ -32,6 +32,4 @@
         android:text="Le Anh Quan"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-
-
 </LinearLayout>
