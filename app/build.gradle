@@ -91,5 +91,7 @@ dependencies {
     //edittext
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
-
+    //slider
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
 }

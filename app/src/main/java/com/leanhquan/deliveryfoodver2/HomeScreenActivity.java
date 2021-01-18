@@ -27,6 +27,10 @@ import android.widget.Toast;
 
 import com.andremion.counterfab.CounterFab;
 import com.bumptech.glide.Glide;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,16 +38,22 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.leanhquan.deliveryfoodver2.Common.Common;
 import com.leanhquan.deliveryfoodver2.Database.Database;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
+import com.leanhquan.deliveryfoodver2.Model.Banner;
 import com.leanhquan.deliveryfoodver2.Model.Category;
 import com.leanhquan.deliveryfoodver2.Service.ListenOrderService;
 import com.leanhquan.deliveryfoodver2.ViewHolder.MenuViewHolder;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 import io.paperdb.Paper;
 
@@ -56,6 +66,9 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     private CounterFab                fapCart;
     private TextView                  txtFullname;
 
+    //Slider
+    private HashMap<String, String> image_list;
+    private SliderLayout mSlider;
 
 
     private FirebaseRecyclerAdapter<Category, MenuViewHolder>   adapterCategorylist;
@@ -100,6 +113,64 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         View HeaderView = navigationView.getHeaderView(0);
         txtFullname = HeaderView.findViewById(R.id.txtFullName);
         txtFullname.setText(Common.currentUser.getName());
+
+        //Setup Slider
+        setupSlider();
+    }
+
+    private void setupSlider() { // TODO: 1/18/21 ********************* READ AGAIN
+        mSlider = (SliderLayout) findViewById(R.id.slider);
+        image_list = new HashMap<>();
+
+        final DatabaseReference banners = FirebaseDatabase.getInstance().getReference("banners");
+        banners.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapShot : dataSnapshot.getChildren()) {
+                    Banner banner = postSnapShot.getValue(Banner.class);
+                    // concat string name and id
+                    // BanhMi_01 => BanhMi để show description, 01 cho food id để click
+                    image_list.put(banner.getName() + "@@@" + banner.getId(), banner.getImage());
+                }
+                for (String key : image_list.keySet()) {
+                    String[] keySplit = key.split("@@@");
+                    String nameOfFood = keySplit[0];
+                    String idOfFood = keySplit[1];
+
+                    //tạo slider
+                    final TextSliderView textSliderView = new TextSliderView(getBaseContext());
+                    textSliderView.description(nameOfFood)
+                            .image(image_list.get(key))
+                            .setScaleType(BaseSliderView.ScaleType.Fit)
+                            .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                @Override
+                                public void onSliderClick(BaseSliderView slider) {
+                                    Intent intent = new Intent(HomeScreenActivity.this, FoodDetailsActivity.class);
+                                    //gửi food id cho foodDetail
+                                    intent.putExtras(textSliderView.getBundle());
+                                    startActivity(intent);
+                                }
+                            });
+                    //add extra bundle
+                    textSliderView.bundle(new Bundle());
+                    textSliderView.getBundle().putString("FoodId", idOfFood);
+                    textSliderView.setPicasso(Picasso.with(HomeScreenActivity.this));
+                    mSlider.addSlider(textSliderView);
+
+                    // remove event sau khi finish
+                    banners.removeEventListener(this);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        mSlider.setPresetTransformer(SliderLayout.Transformer.Background2Foreground);
+        mSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mSlider.setCustomAnimation(new DescriptionAnimation());
+        mSlider.setDuration(3500);
     }
 
 
@@ -208,10 +279,6 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
 
         if (id == R.id.page_menu) {
             Toast.makeText(this, "Go to menu", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.page_cart) {
-            Toast.makeText(this, "Go to cart", Toast.LENGTH_SHORT).show();
-            Intent cartIntent = new Intent(HomeScreenActivity.this, CartActivity.class);
-            startActivity(cartIntent);
         } else if (id == R.id.page_historycart) {
             Toast.makeText(this, "Go to history", Toast.LENGTH_SHORT).show();
             Intent OrderIntent = new Intent(HomeScreenActivity.this, OrderListActivity.class);

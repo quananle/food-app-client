@@ -10,11 +10,6 @@
             android:icon="@drawable/ic_menu"
             android:title="Thực đơn"/>
         <item
-            android:id="@+id/page_cart"
-            android:enabled="true"
-            android:icon="@drawable/ic_cart"
-            android:title="Giỏ hàng"/>
-        <item
             android:id="@+id/page_historycart"
             android:enabled="true"
             android:icon="@drawable/ic_history"
