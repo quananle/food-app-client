@@ -4,10 +4,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import com.leanhquan.deliveryfoodver2.Model.Request;
 import com.leanhquan.deliveryfoodver2.Model.User;
 
 public class Common {
     public static User currentUser;
+    public static Request currentRequest;
 
     public static final String DELETE =    "DELETE";
     public static final String USER_KEY =  "User";

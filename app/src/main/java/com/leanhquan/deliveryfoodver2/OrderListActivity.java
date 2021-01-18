@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.leanhquan.deliveryfoodver2.Common.Common;
+import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Request;
 import com.leanhquan.deliveryfoodver2.ViewHolder.OrderViewHolder;
 
@@ -78,11 +81,21 @@ public class OrderListActivity extends AppCompatActivity {
                 .build();
         adapter = new FirebaseRecyclerAdapter<Request, OrderViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull Request model) {
+            protected void onBindViewHolder(@NonNull OrderViewHolder holder, int position, @NonNull final Request model) {
                 holder.txtOderId.setText("Code order #"+adapter.getRef(position).getKey());
                 holder.txtOderStatus.setText(Common.convertCodeToStatus(model.getStatus()));
                 holder.txtAddress.setText(model.getAddress());
                 holder.txtOderPhone.setText(model.getPhone());
+                holder.setItemClickListener(new ItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position, boolean longClick) {
+                        Intent orderDetails = new Intent(OrderListActivity.this, OrderDetailsActivity.class);
+                        Common.currentRequest = model;
+                        orderDetails.putExtra("orderID", adapter.getRef(position).getKey());
+                        startActivity(orderDetails);
+                        Toast.makeText(OrderListActivity.this, "goto Details", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @NonNull
