@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Database extends SQLiteAssetHelper {
     private static final String DB_NAME = "DeliveryFoodAppver2.db";
-    private static final  int DB_VER = 1;
+    private static final  int DB_VER = 3;
 
     public Database(Context context) {
         super(context, DB_NAME, null, DB_VER);
@@ -23,7 +23,7 @@ public class Database extends SQLiteAssetHelper {
         SQLiteDatabase db = getReadableDatabase();
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 
-        String[] sqlSelect = {"ProductID", "ProductName", "ProductCount", "ProductPrice", "Discount"};
+        String[] sqlSelect = {"ProductID", "ProductName", "ProductCount", "ProductPrice", "Discount", "Image"};
         String sqlTable = "OrderDetail";
 
         qb.setTables(sqlTable);
@@ -36,8 +36,8 @@ public class Database extends SQLiteAssetHelper {
                         cursor.getString(cursor.getColumnIndex("ProductName")),
                         cursor.getString(cursor.getColumnIndex("ProductCount")),
                         cursor.getString(cursor.getColumnIndex("ProductPrice")),
-                        cursor.getString(cursor.getColumnIndex("Discount"))
-
+                        cursor.getString(cursor.getColumnIndex("Discount")),
+                        cursor.getString(cursor.getColumnIndex("Image"))
                 ));
             }while (cursor.moveToNext());
         }
@@ -46,12 +46,12 @@ public class Database extends SQLiteAssetHelper {
 
     public  void addTocart(Order order){
         SQLiteDatabase db = getReadableDatabase();
-        String query = String.format("INSERT INTO OrderDetail(ProductID, ProductName, ProductCount, ProductPrice, Discount) VALUES('%s','%s','%s','%s','0');",
+        String query = String.format("INSERT INTO OrderDetail(ProductID,ProductName,ProductCount,ProductPrice,Discount,Image) VALUES('%s','%s','%s','%s','0','%s');",
                 order.getProductID(),
                 order.getProductName(),
                 order.getProductCount(),
-                order.getProductPrice());
-                order.getDiscount();
+                order.getProductPrice(),
+                order.getImage());
         db.execSQL(query);
     }
 
@@ -60,4 +60,19 @@ public class Database extends SQLiteAssetHelper {
         String query = String.format("DELETE FROM OrderDetail");
         db.execSQL(query);
     }
+
+    public int getCountCart() {
+        int count = 0;
+        SQLiteDatabase db = getReadableDatabase();
+        String query = String.format("SELECT COUNT (*) FROM OrderDetail");
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor .moveToFirst()){
+            do {
+                count = cursor.getInt(0);
+            }while (cursor.moveToNext());
+        }
+        return count;
+    }
+
+
 }

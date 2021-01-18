@@ -55,7 +55,8 @@ public class FoodDetailsActivity extends AppCompatActivity {
                         currenFood.getName(),
                         numberButton.getNumber(),
                         currenFood.getPrice(),
-                        currenFood.getDiscount()
+                        currenFood.getDiscount(),
+                        currenFood.getImage()
                 ));
                 Toast.makeText(FoodDetailsActivity.this, "Add to cart" +currenFood.getName(), Toast.LENGTH_SHORT).show();
 

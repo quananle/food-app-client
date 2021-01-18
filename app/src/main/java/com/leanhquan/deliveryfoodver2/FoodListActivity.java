@@ -24,8 +24,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.leanhquan.deliveryfoodver2.Common.Common;
+import com.leanhquan.deliveryfoodver2.Database.Database;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Food;
+import com.leanhquan.deliveryfoodver2.Model.Order;
 import com.leanhquan.deliveryfoodver2.ViewHolder.FoodViewHolder;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 import com.squareup.picasso.Picasso;
@@ -194,7 +196,7 @@ public class FoodListActivity extends AppCompatActivity {
         }
     }
 
-    private void loadListFood(String menuId){
+    private void loadListFood(final String menuId){
         Query query = FirebaseDatabase.getInstance().getReference().child("foods").orderByChild("menuId").equalTo(menuId);
         FirebaseRecyclerOptions<Food> options = new FirebaseRecyclerOptions.Builder<Food>()
                 .setQuery(query, Food.class)
@@ -208,10 +210,27 @@ public class FoodListActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onBindViewHolder(@NonNull FoodViewHolder holder, int position, @NonNull Food model) {
+            protected void onBindViewHolder(@NonNull FoodViewHolder holder, final int position, @NonNull final Food model) {
                 Picasso.with(FoodListActivity.this).load(model.getImage()).centerCrop().fit().into(holder.imgFood);
                 holder.nameFood.setText(model.getName());
                 holder.priceFood.setText("$"+model.getPrice());
+
+                holder.quickCart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new Database(getBaseContext()).addTocart(new Order(
+                                adapterFoodList.getRef(position).getKey(),
+                                model.getName(),
+                                "1",
+                                model.getPrice(),
+                                model.getDiscount(),
+                                model.getImage()
+                        ));
+                        Toast.makeText(FoodListActivity.this, "Add to cart" +model.getName(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
                 final Food food = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override

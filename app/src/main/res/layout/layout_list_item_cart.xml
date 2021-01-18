@@ -73,16 +73,12 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-        <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+        <ImageView
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp"
-            app:backGroundColor="@color/colorAccent"
-            app:initialNumber="1"
-            app:finalNumber="20"
-            app:textSize="4sp"
             android:id="@+id/btn_quantity"
-            android:layout_width="100dp"
-            android:layout_height="40dp"/>
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

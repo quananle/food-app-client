@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.leanhquan.deliveryfoodver2.Common.Common;
+import com.leanhquan.deliveryfoodver2.Database.Database;
 import com.leanhquan.deliveryfoodver2.Inteface.ItemClickListener;
 import com.leanhquan.deliveryfoodver2.Model.Category;
 import com.leanhquan.deliveryfoodver2.Service.ListenOrderService;
@@ -78,6 +79,8 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
             }
         });
 
+        fapCart.setCount(new Database(this).getCountCart());
+
         if (Common.isConnectedToInternet(this)){
             loadListCategory();
         }else {
@@ -116,6 +119,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
     protected void onResume() {
         super.onResume();
         if (adapterCategorylist != null){adapterCategorylist.startListening();}
+        fapCart.setCount(new Database(this).getCountCart());
     }
 
     private void loadListCategory() {

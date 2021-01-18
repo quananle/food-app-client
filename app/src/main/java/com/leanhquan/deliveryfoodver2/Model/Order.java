@@ -1,20 +1,23 @@
 package com.leanhquan.deliveryfoodver2.Model;
 
 public class Order {
+
     private String ProductID;
     private String ProductName;
     private String ProductCount;
     private String ProductPrice;
     private String Discount;
+    private String Image;
 
     public Order(){}
 
-    public Order(String productID, String productName, String productCount, String productPrice, String discount) {
+    public Order(String productID, String productName, String productCount, String productPrice, String discount, String image) {
         ProductID = productID;
         ProductName = productName;
         ProductCount = productCount;
         ProductPrice = productPrice;
         Discount = discount;
+        Image = image;
     }
 
     public String getProductID() {
@@ -55,5 +58,13 @@ public class Order {
 
     public void setDiscount(String discount) {
         Discount = discount;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String image) {
+        Image = image;
     }
 }
