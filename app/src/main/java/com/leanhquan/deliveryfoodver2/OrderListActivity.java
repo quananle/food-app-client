@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +99,7 @@ public class OrderListActivity extends AppCompatActivity {
             @NonNull
             @Override
             public OrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listorder,parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_order,parent, false);
                 OrderViewHolder viewHolder = new OrderViewHolder(view);
                 return viewHolder;
             }

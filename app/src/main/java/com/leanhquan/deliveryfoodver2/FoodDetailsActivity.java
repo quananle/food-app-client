@@ -98,11 +98,11 @@ public class FoodDetailsActivity extends AppCompatActivity {
 
     private void init() {
         foodDecription = findViewById(R.id.food_description);
-        foodName = findViewById(R.id.food_name);
-        foodPrice = findViewById(R.id.food_price);
-        foodImage = findViewById(R.id.img_food);
+        foodName = findViewById(R.id.food_name_details);
+        foodPrice = findViewById(R.id.food_price_details);
+        foodImage = findViewById(R.id.img_food_details);
         numberButton = findViewById(R.id.number_button);
-        btnCart = findViewById(R.id.btnCart);
+        btnCart = findViewById(R.id.btnCart_details);
         collapsingToolbarLayout = findViewById(R.id.collapsing);
     }
 }

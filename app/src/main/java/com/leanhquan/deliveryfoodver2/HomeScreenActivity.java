@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,8 +68,7 @@ public class HomeScreenActivity extends AppCompatActivity implements NavigationV
         startService(service);
 
         recyclerMenu = findViewById(R.id.recycler_menu);
-        RecyclerView.LayoutManager layoutManagerListCategory = new LinearLayoutManager(this);
-        recyclerMenu.setLayoutManager(layoutManagerListCategory);
+        recyclerMenu.setLayoutManager(new GridLayoutManager(this, 2));
 
         fapCart.setOnClickListener(new View.OnClickListener() {
             @Override

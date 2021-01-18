@@ -13,8 +13,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -129,14 +127,6 @@ public class FoodListActivity extends AppCompatActivity {
         searchAdapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull final FoodViewHolder foodViewHolder, final int i, @NonNull final Food model) {
-                /*
-                TextView textViewName = foodViewHolder.itemView.findViewById(R.id.food_name_detail);
-                ImageView imageView = foodViewHolder.itemView.findViewById(R.id.img_food_detail);
-                TextView textViewPrice = foodViewHolder.itemView.findViewById(R.id.food_price_detail);
-                textViewPrice.setText(String.format("$ %s", model.getPrice()));
-                textViewName.setText(model.getName());
-                Picasso.with(FoodListActivity.this).load(model.getImage()).resize(600, 600).into(imageView);
-                 */
                 foodViewHolder.nameFood.setText(model.getName());
                 Picasso.with(FoodListActivity.this).load(model.getImage()).into(foodViewHolder.imgFood);
 
@@ -154,7 +144,7 @@ public class FoodListActivity extends AppCompatActivity {
             @NonNull
             @Override
             public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listfood, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_list_food, parent, false);
                 return new FoodViewHolder(view);
             }
         };
@@ -213,7 +203,7 @@ public class FoodListActivity extends AppCompatActivity {
             @NonNull
             @Override
             public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(FoodListActivity.this).inflate(R.layout.layout_listfood,parent, false);
+                View view = LayoutInflater.from(FoodListActivity.this).inflate(R.layout.layout_list_food,parent, false);
                 return new FoodViewHolder(view);
             }
 
@@ -221,6 +211,7 @@ public class FoodListActivity extends AppCompatActivity {
             protected void onBindViewHolder(@NonNull FoodViewHolder holder, int position, @NonNull Food model) {
                 Picasso.with(FoodListActivity.this).load(model.getImage()).centerCrop().fit().into(holder.imgFood);
                 holder.nameFood.setText(model.getName());
+                holder.priceFood.setText("$"+model.getPrice());
                 final Food food = model;
                 holder.setItemClickListener(new ItemClickListener() {
                     @Override
@@ -232,7 +223,6 @@ public class FoodListActivity extends AppCompatActivity {
                     }
                 });
             }
-
 
         };
         recyclerViewListFood.setAdapter(adapterFoodList);

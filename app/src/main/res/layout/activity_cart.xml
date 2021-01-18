@@ -35,7 +35,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/layout_list_itemcart"
+                    tools:listitem="@layout/layout_list_item_cart"
                     android:padding="3dp"
                     android:id="@+id/recycler_cart"
                     android:background="@android:color/transparent"
