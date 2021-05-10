@@ -35,7 +35,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText        edtPhone, edtUsername, edtPassword, edtRescueCode;
     private RelativeLayout  layout;
 
-    @SuppressLint("ClickableViewAccessibility")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
